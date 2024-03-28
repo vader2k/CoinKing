@@ -1,8 +1,13 @@
+import Hero from '../components/Hero';
 
 
 const Home = () => {
+
+
   return (
-    <div className="font-Gambetta">Home</div>
+    <main className="font-Gambetta w-full">
+      <Hero />
+    </main>
   )
 }
 

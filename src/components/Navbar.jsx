@@ -12,7 +12,7 @@ const Navbar = () => {
 ]
 
   return (
-    <section className='w-full bg-black text-white'>
+    <section className='w-full border-b'>
       <nav className='flex justify-between py-5 px-10 max-w-[1400px] mx-auto'>
         <div className='flex items-center gap-4'>
           <img src={logo} alt='logo' className='h-[50px] animate-pulse'/>
@@ -26,7 +26,7 @@ const Navbar = () => {
                 <Link to={link.path}>
                   <div className='flex items-center gap-2'>
                     <p>{link.name}</p>
-                    <p className='text-gray-300'>< link.icon /></p>
+                    <p className='text-gray-600 hover:animate-ping'>< link.icon /></p>
                   </div>
                 </Link>
               </span>

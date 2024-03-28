@@ -11,6 +11,10 @@ export default {
         General : ["General Sans", "sans-serif"]
       }
     },
+    backgroundImage: {
+      'bg-img-1': "url('./assets/hero1.jpg')",
+      'bg-img-2': "url('./assets/hero2.jpg')",
+    }
   },
   plugins: [],
 }
