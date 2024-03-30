@@ -4,21 +4,38 @@ import { useGetStatsQuery } from '../services/CryptoApi'
 import Loader from './Loader'
 import { Link } from 'react-router-dom'
 import Cryptos from '../pages/Cryptos'
-
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 const Statistics = () => {
 
   const { data, error, isFetching } = useGetStatsQuery()
+  const [ coinDetail, setCoinDetail] = useState([])
+  // const [ id, setId ] = useState([]) 
 
-  // handles statistics api
-  if (error) return <p>Error :(</p>
-  if (isFetching) return <Loader />
-  const stats = data?.data
-  // handles cryptos api
+
+
+    // handles statistics api
+    if (error) return <p>Error :(</p>
+    if (isFetching) return <Loader />
+    const stats = data?.data
+    console.log(stats)
+    const id = stats?.bestCoins
+    const uuids = id.map(item => item.uuid)
+    console.log(uuids)
+  
+    // handles cryptos api
+
+  const fetchData = async () => {
+    const res = await axios.get(`https://coinranking1.p.rapidapi.com/coin/${id}`)
+  }
+
+
+
 
   
   return (
     <section className='flex flex-col gap-8'>
-        <div className="md:text-[2.5rem] text-[1.5rem] font-semibold capitalize w-full text-gray-600 flex items-center gap-1">
+        <div className="text-[1.5rem] font-semibold capitalize w-full text-gray-600 flex items-center gap-1 font-General">
             <h1>Coin Ranking Global Statistics</h1>
             <img src={coin} alt="coin" width={40}/>
         </div>
@@ -27,7 +44,7 @@ const Statistics = () => {
         </p>
         {/* global*/}
         <div className='flex flex-col gap-3'>
-          <h1 className='md:text-[2rem] text-[1.5rem] font-semibold capitalize'>Global Crypto stats</h1>
+          <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600'>Global Crypto stats</h1>
           <div className='w-full flex justify-between flex-wrap gap-4'>
             <div>
               <h3 className='text-gray-600 text-[0.9rem] font-medium capitalize'>Total cryptocurrencies</h3>
@@ -53,12 +70,14 @@ const Statistics = () => {
         </div>
 
         {/* best coin and newest coin */}
-        <div className='flex w-full flex-wrap gap-6 max-w-[1200px] mx-auto'>
           <div className='w-full flex flex-col gap-6'>
-            <h1 className='md:text-[2rem] text-[1.5rem] font-semibold capitalize'>
-              Best coins to look out for
+            <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600'>
+              Best coins in the market
             </h1>
-            <div className='w-full flex gap-5 flex-wrap'>
+            <p>
+              We conducts comprehensive research to identify the top-performing crypto assets with exceptional value and returns. By analyzing market data and trends, we curate a daily report that highlights the most promising cryptocurrencies, ensuring you{"'"}re always informed about the latest craze in the market. Stay ahead of the curve and make informed investment decisions with our up-to-date insights into the best crypto currencies available.
+            </p>
+            <div className='w-full flex gap-5 justify-evenly'>
               {data?.data?.bestCoins.map((coin, i ) => (
                 <Link 
                   key={i} 
@@ -69,7 +88,7 @@ const Statistics = () => {
                     <img className='w-[30px] h-[30px]' src={coin.iconUrl} alt="icons" />
                     <div className='flex flex-col items-center gap-3'>
                       <h1 className='text-2xl'>{coin.name}</h1>
-                      <div>
+                      <div className='flex flex-col items-center'>
                         <p className='text-[0.75rem]'>SYMBOL</p>
                         <h1 className='text-[0.9rem] font-bold text-gray-600'>{coin.symbol}</h1>
                       </div>
@@ -81,10 +100,13 @@ const Statistics = () => {
           </div>
 
           <div className='w-full flex flex-col gap-6'>
-            <h1 className='md:text-[2rem] text-[1.5rem] font-semibold capitalize'>
+            <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600'>
               Newest coins in the market
             </h1>
-            <div className='w-full flex gap-5 flex-wrap '>
+            <p>
+              we pride ourselves on delivering top-notch news updates that keep you informed about the ever-changing landscape of cryptocurrencies. With a commitment to excellence, we ensure that our users stay abreast of the latest developments, including the arrival of new coins in the market, ensuring you're always ahead of the curve. 
+            </p>
+            <div className='w-full flex gap-5 justify-evenly '>
               {data?.data?.newestCoins.map((coin, i ) => (
                 <Link 
                   key={i} 
@@ -95,7 +117,7 @@ const Statistics = () => {
                     <img className='w-[30px] h-[30px]' src={coin.iconUrl} alt="icons" />
                     <div className='flex flex-col items-center gap-3'>
                       <h1 className='text-2xl'>{coin.name}</h1>
-                      <div>
+                      <div className='flex flex-col items-center'>
                         <p className='text-[0.75rem]'>SYMBOL</p>
                         <h1 className='text-[0.9rem] font-bold text-gray-600'>{coin.symbol}</h1>
                       </div>
@@ -105,12 +127,11 @@ const Statistics = () => {
               ))}
             </div>
         </div>
-        </div>
         
         {/* top 10 cryptos */}
         <div className='w-full flex flex-col gap-6'>
           <div className='w-full flex items-end justify-between'>
-            <h1>Top 10 Crypto currencies in the world</h1>
+            <h1 className='text-gray-600'>Top 10 Crypto currencies in the world</h1>
             <Link to='/cryptos'>
                 <p className='text-gray-600 font-medium cursor-pointer hover:text-yellow-400'>see more!</p>
             </Link>

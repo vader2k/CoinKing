@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useGetCryptosQuery } from "../services/CryptoApi"
 import { useState, useEffect } from "react"
+import millify from "millify"
 
 const Cryptos = ({simplified}) => {
   const count = simplified ? 10 : 100
@@ -11,7 +12,6 @@ const Cryptos = ({simplified}) => {
   useEffect(() => {
     const filteredData = data?.data?.coins.filter((coin) => coin.name.toLowerCase().includes(search.toLowerCase()))
     setCryptos(filteredData)
-    console.log(cryptos)
   },[search, data])
 
   return (
@@ -19,33 +19,36 @@ const Cryptos = ({simplified}) => {
       <div>
         {
           !simplified && (
-            <div className="max-w-[300px] mx-auto px-5 py-3 text-[0.8rem] outline-none border-yellow-400 border">
+            <div className="w-full">
               <input
                 type="text"
                 placeholder="search for a currency"
                 onChange={(e) => setSeach(e.target.value)}
+                className="w-full min-w-[400px] border outline-none px-5 py-3 border-yellow-400"
               />
             </div>
           )
         }
       </div>
 
-      <div className="my-5 flex flex-wrap justify-evenly gap-6">
-        {cryptos.map((data) => (
-          <div key={data.rank} className="w-[200px]">
+      <div className="my-10 flex flex-wrap justify-evenly gap-3 w-full">
+        {cryptos?.map((data) => (
+          <div key={data.rank} className="w-[250px]">
             <Link to={`/cryptos/${data.uuid}`}>
-              <div className="border rounded-xl flex flex-col gap-6 hover:shadow-md">
-                <div className="flex w-full items-center justify-between p-5 border-b">
+              <div className="border rounded-xl flex flex-col hover:shadow-md">
+                <div className="flex w-full items-center justify-between px-5 py-3 border-b">
                   <div className="flex items-center gap-2">
                     <p>{data.rank}.</p>
-                    <p>{data.name}</p>
+                    <p className="max-w-[200px]">{data.name}</p>
                   </div>
                   <div>
-                    <img className="w-[30px]" src={data.iconUrl} alt="icon" />
+                    <img className="w-[30px] h-[30px] object-cover" src={data.iconUrl} alt="icon" />
                   </div>
                 </div>
-                <div>
-
+                <div className="p-5">
+                  <p>price: {millify(data.price)}</p>
+                  <p>Market: {millify(data.marketCap)}</p>
+                  <p>Daily Change: {millify(data.change)}%</p>
                 </div>
               </div>
             </Link>
