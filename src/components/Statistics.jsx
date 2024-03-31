@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import Cryptos from '../pages/Cryptos'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { PiFolderOpenDuotone } from "react-icons/pi";
+
 const Statistics = () => {
 
   const { data, error, isFetching } = useGetStatsQuery()
@@ -41,7 +43,6 @@ const Statistics = () => {
         // Process the response data for each API call
         const coinDetails = response.map(res => res.data)
         setCoinDetail(coinDetails)
-        console.log(coinDetail);
       } catch (error) {
         console.log(error)
       }
@@ -99,13 +100,19 @@ const Statistics = () => {
               We conducts comprehensive research to identify the top-performing crypto assets with exceptional value and returns. By analyzing market data and trends, we curate a daily report that highlights the most promising cryptocurrencies, ensuring you{"'"}re always informed about the latest craze in the market. Stay ahead of the curve and make informed investment decisions with our up-to-date insights into the best crypto currencies available.
             </p>
             <div className='w-full flex flex-col gap-5'>
-              <div></div>
+              <div className='flex w-full px-5 font-medium justify-between'>
+                <span className='min-w-[100px]'>#Coins</span>
+                <span className=''> Price</span>
+                <span className=''>Change</span>
+                <span className=''>High</span>
+              </div>
               {coinDetail?.map((coin, i ) => (
                 <Link 
-                  key={i} 
+                  key={i}
+                  to={`${coin?.data?.coin?.websiteUrl}`} 
                 >
-                  <div className='flex w-full items-center justify-evenly border-b'>
-                    <div className='flex items-center gap-4'>
+                  <div className='flex w-full items-center justify-between border-b'>
+                    <div className='flex items-center gap-4 max-w-[120px]'>
                       <p>{i + 1}</p>
                       <img 
                         src={coin?.data?.coin?.iconUrl} 
@@ -123,15 +130,15 @@ const Statistics = () => {
                     </div>
 
                     <div className='text-[0.9rem] font-medium'>
-                      ${coin?.data?.coin?.price}
+                      ${coin?.data?.coin?.price.slice(0,7)}
                     </div>
 
-                    <div>
+                    <div className=''>
                     {coin?.data?.coin?.change}%
                     </div>
 
-                    <div>
-                      ${millify(coin?.data?.coin?.allTimeHigh.price)}
+                    <div className=''>
+                      ${coin?.data?.coin?.allTimeHigh.price.slice(0,7)}
                     </div>
                   </div>
                 </Link>
@@ -144,7 +151,7 @@ const Statistics = () => {
               Newest coins in the market
             </h1>
             <p>
-              we pride ourselves on delivering top-notch news updates that keep you informed about the ever-changing landscape of cryptocurrencies. With a commitment to excellence, we ensure that our users stay abreast of the latest developments, including the arrival of new coins in the market, ensuring you{"'"}re always ahead of the curve. 
+              we pride ourselves on delivering top-notch news updates that keep you informed about the ever-changing landscape of cryptocurrencies. With a commitment to excellence, we ensure that our users stay abreast of the latest developments, including newest coins that were added to Coinranking. 
             </p>
             <div className='w-full flex gap-5 justify-evenly '>
               {data?.data?.newestCoins.map((coin, i ) => (
@@ -153,13 +160,15 @@ const Statistics = () => {
                   to={coin.coinrankingUrl}
                   target='_blank'
                 >
-                  <div className='flex flex-col items-center gap-6 border w-[150px] min-h-[100px] p-5 cursor-pointer rounded-xl hover:shadow-md transition-all'>
-                    <img className='w-[30px] h-[30px]' src={coin.iconUrl} alt="icons" />
+                  <div className='flex flex-col items-center gap-6 border w-[150px] min-h-[100px] p-5 cursor-pointer rounded-md hover:shadow-md transition-all'>
+                    <div className='w-[60px] h-[60px] flex items-center justify-center border rounded-full border-yellow-300'>
+                      <img className='w-[30px] h-[30px]' src={coin.iconUrl} alt="icons" />
+                    </div>
                     <div className='flex flex-col items-center gap-3'>
-                      <h1 className='uppercase'>{coin.name}</h1>
+                      <h1 className='uppercase text-[0.8rem]'>{coin.name}</h1>
                       <div className='flex flex-col items-center'>
                         <p className='text-[0.75rem]'>SYMBOL</p>
-                        <h1 className='text-[0.9rem] font-bold text-gray-600'>{coin.symbol}</h1>
+                        <h1 className='text-[0.75rem] font-bold text-gray-600'>{coin.symbol}</h1>
                       </div>
                     </div>
                   </div>
@@ -169,13 +178,18 @@ const Statistics = () => {
         </div>
         
         {/* top 10 cryptos */}
-        <div className='w-full flex flex-col gap-6'>
+        <div className='w-full flex flex-col gap-4'>
           <div className='w-full flex items-end justify-between'>
-            <h1 className='text-gray-600'>Top 10 Crypto currencies in the world</h1>
-            <Link to='/cryptos'>
+            <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600 '>Top 10 Crypto currencies in the world</h1>
+            <Link to='/cryptos' className='flex items-center gap-1 hover:text-yellow-400'>
                 <p className='text-gray-600 font-medium cursor-pointer hover:text-yellow-400'>see more!</p>
+                <PiFolderOpenDuotone />
             </Link>
           </div>
+
+          <p>
+            We understand the importance of staying up-to-date on the ever-shifting landscape of the cryptocurrency market. That's why we offer real-time updates on the top 10 crypto rankings. Our system continuously monitors market data, instantly reflecting any changes in price, market cap, or overall coin performance. With this dynamic ranking system, you can see the movers and shakers of the crypto world at a glance, allowing you to react to market trends and make informed investment decisions as they unfold.
+          </p>
 
           <Cryptos simplified/>
         </div>

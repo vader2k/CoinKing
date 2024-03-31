@@ -2,7 +2,7 @@ import logo from '/logo.png'
 
 const Loader = () => {
   return (
-    <section className='max-w-[1400px] flex flex-col gap-5 items-center justify-center my-20'>
+    <section className='max-w-[1400px] flex flex-col gap-5 items-center justify-center my-60 mx-auto'>
       <img src={logo} alt="logo" className='animate-pulse'/>
       <h1>fetching data 🪙</h1>
     </section>

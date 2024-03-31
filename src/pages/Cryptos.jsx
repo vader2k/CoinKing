@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useGetCryptosQuery } from "../services/CryptoApi"
 import { useState, useEffect } from "react"
 import millify from "millify"
+import Loader from "../components/Loader"
 
 const Cryptos = ({simplified}) => {
   const count = simplified ? 10 : 100
@@ -13,6 +14,9 @@ const Cryptos = ({simplified}) => {
     const filteredData = data?.data?.coins.filter((coin) => coin.name.toLowerCase().includes(search.toLowerCase()))
     setCryptos(filteredData)
   },[search, data])
+
+  if (isFetching) return <Loader />
+  if (error) return <p>Error :(</p>;
 
   return (
     <section className="my-5 px-10">
@@ -31,10 +35,10 @@ const Cryptos = ({simplified}) => {
         }
       </div>
 
-      <div className="my-10 flex flex-wrap justify-evenly gap-3 w-full">
+      <div className="my-10 flex flex-wrap items-start justify-center gap-6 w-full px-5">
         {cryptos?.map((data) => (
           <div key={data.rank} className="w-[250px]">
-            <Link to={`/cryptos/${data.uuid}`}>
+            <Link to={`/details/${data.uuid}`}>
               <div className="border rounded-xl flex flex-col hover:shadow-md">
                 <div className="flex w-full items-center justify-between px-5 py-3 border-b">
                   <div className="flex items-center gap-2">
