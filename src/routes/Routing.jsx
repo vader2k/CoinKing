@@ -10,7 +10,7 @@ const Routing = () => {
     <Routes>
       <Route index element = {<Home />} />
       <Route path="/cryptos" element={<Cryptos />} />
-      <Route path="/details/:id" element={<Details />} />
+      <Route path="/details/:coinId" element={<Details />} />
       <Route path="/news" element={<News />} />
     </Routes>
   )
