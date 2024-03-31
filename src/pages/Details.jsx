@@ -12,6 +12,7 @@ import { RiContrastDropLine } from "react-icons/ri";
 import { LuWaves } from "react-icons/lu";
 import { BsAward } from "react-icons/bs";
 import { CiCircleCheck } from "react-icons/ci";
+import { FcCancel } from "react-icons/fc";
 import { IoLink } from "react-icons/io5";
 import { CiShoppingTag } from "react-icons/ci";
 
@@ -33,6 +34,14 @@ const Details = () => {
     { title: 'Market cap', value: `$ ${details?.marketCap && millify(details.marketCap)}`, icon: <LuWaves />},
     { title: 'Fully diluted market cap', value: `$ ${details?.fullyDilutedMarketCap && millify(details.fullyDilutedMarketCap)}`, icon:<LuWaves />  },
     { title: 'All-time-high', value: `$ ${millify(details?.allTimeHigh?.price)}`, icon: <BsAward /> },
+  ]
+
+  const others = [
+    { title: 'Circulating supply', value: `${details?.supply?.circulating && millify(details.supply.circulating) + " " + details?.symbol}`},
+    { title: 'Total supply', value: `${details?.supply?.total && millify(details.supply.total) + " " + details?.symbol}`},
+    { title: 'Max supply', value: `${details?.supply?.max === null ? 0 : millify(details.supply.max) + " " + details.symbol}` },
+    { title: 'Issuance blockchain', value: details?.name}
+
   ]
   
   return (
@@ -109,8 +118,40 @@ const Details = () => {
           View the total and circulating supply of {details?.name}, including details on how the supplies are calculated.
         </p>
 
-        <div className="w-full py-5 px-8 rounded-xl my-5" style={{background: `${color}70`}}>
-          
+        <div className="w-full py-5 rounded-xl my-5" style={{background: `${color}70`}}>
+          <div className="w-full flex items-center justify-between px-8 my-2">
+            <div className="flex flex-col gap-3">
+              {details?.supply?.confirmed ? (
+                <div className="flex items-center gap-2 text-green-500"><CiCircleCheck className="text-[1.5rem]"/> <p>Verified supply</p>
+                </div>)
+              : (
+                <div className="flex items-center gap-2 text-red-500"><FcCancel className="text-[1.5rem]"/> <p>unverified supply</p>
+                </div>
+                )}
+              <span className="text-gray-600 text-[0.8rem]">Updated 1 minute ago</span>
+            </div>
+
+            <div>
+              {details?.supply?.confirmed ? (
+                  <div className="h-[100px] w-[100px] flex items-center justify-center border-[5px] rounded-full border-green-500 text-bold">100%
+                </div> 
+                ) : (
+                  <div className="h-[100px] w-[100px] flex items-center justify-center border-[5px] rounded-full border-red-500 text-bold">0%
+                  </div>
+                )}
+            </div>
+          </div>
+          {
+            others.map((data, i) => (
+              <div 
+                key={i}
+                className="w-full flex items-center py-3 justify-between px-8"
+              >
+                <span className="font-Gambetta font-medium">{data.title}</span>
+                <span className="font-semibold font-General">{data.value}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
 

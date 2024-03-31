@@ -38,7 +38,7 @@ const Cryptos = ({simplified}) => {
       <div className="my-10 flex flex-wrap items-start justify-center gap-6 w-full px-5">
         {cryptos?.map((data) => (
           <div key={data.rank} className="w-[250px]">
-            <Link to={`/details/:${data.uuid}`}>
+            <Link to={`/details/${data.uuid}`}>
               <div className="border rounded-xl flex flex-col hover:shadow-md">
                 <div className="flex w-full items-center justify-between px-5 py-3 border-b">
                   <div className="flex items-center gap-2">
