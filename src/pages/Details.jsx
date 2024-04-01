@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import millify from "millify"
 import { useGetCoinHistoryQuery, useGetCoinDetailsQuery} from '../services/CryptoApi'
 import Loader from '../components/Loader'
@@ -18,14 +18,19 @@ import { CiShoppingTag } from "react-icons/ci";
 
 const Details = () => {
   const { coinId } = useParams()
+  const [ timePeriod, setTimePeriod ] = useState('7d')
   const { data, error, isFetching } = useGetCoinDetailsQuery(coinId)
+  const { data: coinHistory } = useGetCoinHistoryQuery({coinId, timePeriod})
   
   if (isFetching) return <Loader />;
   if (error) return <p>Error :(</p>;
   if (!data) return
 
-  const details = data?.data?.coin
-  const color = data?.data?.coin?.color
+  const details = data?.data?.coin // se3tting all coin details array to details
+  const color = data?.data?.coin?.color // extracted color from api to set as icon color and backgrounds
+
+
+  const time = [ '3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y' ] //time period to handle chart time change
 
   const stats = [
     { title: 'Price to USD', value: `$ ${details?.price && millify(details.price)}`, icon : <ImCoinDollar /> },
@@ -84,7 +89,19 @@ const Details = () => {
         </p>
       </div>
 
-      <Chart />
+      {/* CHART DATA AND TIME FRAME */}
+      <div>
+        <select
+          defaultValue={timePeriod}
+          aria-placeholder="choose a time frame"
+          onChange={(e) => setTimePeriod(e.target.value)}
+        >
+          {time.map((date) => (
+            <option key={date} value={date}>{date}</option>
+          ))}
+        </select>
+        <Chart coinHistory={coinHistory} time={timePeriod} currentPrice={millify(details?.price)}/>
+      </div>
 
       <div className="flex flex-col gap-4">
         <h1 className="text-xl font-semibold font-General text-gray-600">Value Statistics</h1>
