@@ -10,7 +10,7 @@ const Home = () => {
       <Hero />
       <div className='w-full max-w-[1400px] mx-auto px-10 ny-10'>
         <Statistics />
-        <News displayCount={6}/>
+        <News displayCount={4}/>
       </div>
     </main>
   )
