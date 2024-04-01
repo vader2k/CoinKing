@@ -29,6 +29,7 @@ const Details = () => {
   const details = data?.data?.coin // se3tting all coin details array to details
   const color = data?.data?.coin?.color // extracted color from api to set as icon color and backgrounds
 
+  const change = coinHistory?.data?.change // volume change for chartrs data
 
   const time = [ '3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y' ] //time period to handle chart time change
 
@@ -95,12 +96,19 @@ const Details = () => {
           defaultValue={timePeriod}
           aria-placeholder="choose a time frame"
           onChange={(e) => setTimePeriod(e.target.value)}
+          className="border px-3 outline-none font-Gambetta"
         >
           {time.map((date) => (
             <option key={date} value={date}>{date}</option>
           ))}
         </select>
-        <Chart coinHistory={coinHistory} time={timePeriod} currentPrice={millify(details?.price)}/>
+        <Chart 
+          coinHistory={coinHistory} 
+          time={timePeriod} 
+          currentPrice={millify(details?.price)} 
+          change={change}
+          color={color}
+        />
       </div>
 
       <div className="flex flex-col gap-4">
