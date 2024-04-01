@@ -28,7 +28,7 @@ const Details = () => {
 
   const stats = [
     { title: 'Price to USD', value: `$ ${details?.price && millify(details.price)}`, icon : <ImCoinDollar /> },
-    { title: 'Price to BTC', value: `${details?.btcPrice && millify(details.btcPrice) + " " + 'BTC'}`, icon : <CiBitcoin /> },
+    { title: 'Price to BTC', value: `${details?.btcPrice && (details.btcPrice.slice(0,10)) + " " + 'BTC'}`, icon : <CiBitcoin /> },
     { title: 'Coin rank', value: details?.rank, icon: <FaRankingStar /> },
     { title: '24h Volume', value: `$ ${details?.['24hVolume'] && millify(details['24hVolume'])}`, icon: <RiContrastDropLine />},
     { title: 'Market cap', value: `$ ${details?.marketCap && millify(details.marketCap)}`, icon: <LuWaves />},
@@ -122,10 +122,10 @@ const Details = () => {
           <div className="w-full flex items-center justify-between px-8 my-2">
             <div className="flex flex-col gap-3">
               {details?.supply?.confirmed ? (
-                <div className="flex items-center gap-2 text-green-500"><CiCircleCheck className="text-[1.5rem]"/> <p>Verified supply</p>
+                <div className="flex items-center gap-2 text-green-500 font-medium"><CiCircleCheck className="text-[1.5rem]"/> <p>Verified supply</p>
                 </div>)
               : (
-                <div className="flex items-center gap-2 text-red-500"><FcCancel className="text-[1.5rem]"/> <p>unverified supply</p>
+                <div className="flex items-center gap-2 text-red-500 font-medium"><FcCancel className="text-[1.5rem]"/> <p>unverified supply</p>
                 </div>
                 )}
               <span className="text-gray-600 text-[0.8rem]">Updated 1 minute ago</span>
@@ -152,6 +152,40 @@ const Details = () => {
               </div>
             ))
           }
+        </div>
+      </div>
+
+      <div className="w-full">
+        <h1 className="text-xl font-semibold font-General text-gray-600">
+          Links
+        </h1>
+
+        <div className="w-full flex flex-col gap-4 my-5">
+          {details?.links.map((link, i) => (
+            <div key={i} className={`w-full flex items-center justify-between pb-2 ${ i != details.links.length - 1 && 'border-b'}`}>
+              <div className="flex items-center gap-2">
+                <IoLink style={{color}}/>
+                <h1 className="font-semibold font-General text-gray-600">{link.type}</h1>
+              </div>
+
+              <Link to={link.url}>
+                <p className="font-General text-gray-500">{link.name}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-full flex items-center justify-between">
+            <h1 className="text-xl font-semibold font-General text-gray-600">Tags</h1>
+
+            <div className="flex gap-2 items-center">
+            <CiShoppingTag style={{color}} className="text-[1.4rem]"/>
+              {details?.tags.map((tag, i) => (
+                <span key={i} className="flex items-center gap-2 ">
+                  <p>{tag}</p>
+                </span>
+              ))}
+            </div>
         </div>
       </div>
 
