@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import millify from "millify"
 import { useGetCoinHistoryQuery, useGetCoinDetailsQuery} from '../services/CryptoApi'
 import Loader from '../components/Loader'
@@ -18,13 +18,14 @@ import { CiShoppingTag } from "react-icons/ci";
 
 const Details = () => {
   const { coinId } = useParams()
-  const { data, error, isFethcing } = useGetCoinDetailsQuery(coinId)
+  const { data, error, isFetching } = useGetCoinDetailsQuery(coinId)
+  
+  if (isFetching) return <Loader />;
+  if (error) return <p>Error :(</p>;
+  if (!data) return
+
   const details = data?.data?.coin
   const color = data?.data?.coin?.color
-
-  if (!data) return
-  if ( isFethcing) return <Loader />
-  if (error) return
 
   const stats = [
     { title: 'Price to USD', value: `$ ${details?.price && millify(details.price)}`, icon : <ImCoinDollar /> },
