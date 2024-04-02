@@ -28,7 +28,7 @@ const Cryptos = ({simplified}) => {
                 type="text"
                 placeholder="search for a currency"
                 onChange={(e) => setSeach(e.target.value)}
-                className="w-full min-w-[400px] border outline-none px-5 py-3 border-yellow-400"
+                className="w-full min-w-[300px] border outline-none px-5 py-3 border-yellow-400"
               />
             </div>
           )
