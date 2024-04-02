@@ -13,19 +13,19 @@ const Navbar = () => {
 
   return (
     <section className='w-full border-b'>
-      <nav className='flex justify-between py-5 px-10 max-w-[1400px] mx-auto'>
+      <nav className='flex justify-between py-5 md:px-10 px-5 max-w-[1400px] mx-auto'>
         <div className='flex items-center gap-4'>
           <img src={logo} alt='logo' className='h-[50px] animate-pulse'/>
-          <h1 className='text-3xl font-semibold font-General'>CoinKing</h1>
+          <h1 className='md:text-3xl text-xl font-semibold font-General'>CoinKing</h1>
         </div>
 
-        <div className='flex items-center gap-10 font-Gambetta font-medium text-[1.2rem]'>
+        <div className='flex items-center md:gap-10 gap-5 font-Gambetta font-medium text-[1.2rem]'>
           {
             navLinks.map((link, i) => (
               <span key={i}>
                 <Link to={link.path}>
                   <div className='flex items-center gap-2'>
-                    <p>{link.name}</p>
+                    <p className='hidden md:block'>{link.name}</p>
                     <p className='text-gray-600 hover:animate-ping'>< link.icon /></p>
                   </div>
                 </Link>

@@ -19,7 +19,7 @@ const Chart = ({ coinHistory, time, currentPrice, change, color }) => {
           <h1 className="text-lg font-semibold font-General text-gray-600">Price chart</h1>
           <div className="flex items-center gap-2">
             <p className="text-[0.85rem]">{time}</p>
-            <p className={`${textStyle} text-[0.85rem] font-bold`}>{change}%</p>
+            <p className={`${textStyle} text-[0.85rem] font-bold`}>{change}</p>
           </div>
         </div>
         <p className="text-lg font-semibold font-General text-gray-600">${currentPrice}</p>
