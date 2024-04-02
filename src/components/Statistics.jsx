@@ -153,7 +153,7 @@ const Statistics = () => {
             <p>
               we pride ourselves on delivering top-notch news updates that keep you informed about the ever-changing landscape of cryptocurrencies. With a commitment to excellence, we ensure that our users stay abreast of the latest developments, including newest coins that were added to Coinranking. 
             </p>
-            <div className='w-full flex gap-5 justify-evenly '>
+            <div className='w-full flex gap-5 justify-evenly flex-wrap '>
               {data?.data?.newestCoins.map((coin, i ) => (
                 <Link 
                   key={i} 
@@ -179,8 +179,8 @@ const Statistics = () => {
         
         {/* top 10 cryptos */}
         <div className='w-full flex flex-col gap-4'>
-          <div className='w-full flex items-end justify-between'>
-            <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600 '>Top 10 Crypto currencies in the world</h1>
+          <div className='w-full flex md:flex-row flex-col md:items-end justify-between'>
+            <h1 className='text-[1.5rem] font-semibold capitalize font-General text-gray-600 '>Top 10 Crypto currencies</h1>
             <Link to='/cryptos' className='flex items-center gap-1 hover:text-yellow-400'>
                 <p className='text-gray-600 font-medium cursor-pointer hover:text-yellow-400'>see more!</p>
                 <PiFolderOpenDuotone />

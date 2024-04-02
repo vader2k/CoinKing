@@ -12,7 +12,7 @@ const Navbar = () => {
 ]
 
   return (
-    <section className='w-full border-b'>
+    <section className='w-full border-b sticky top-0 z-[99] bg-white'>
       <nav className='flex justify-between py-5 md:px-10 px-5 max-w-[1400px] mx-auto'>
         <div className='flex items-center gap-4'>
           <img src={logo} alt='logo' className='h-[50px] animate-pulse'/>
