@@ -52,7 +52,7 @@ const Details = () => {
   ]
   
   return (
-    <section className="w-full flex flex-col gap-5 p-10 max-w-[1600px] mx-auto">
+    <section className="w-full flex flex-col gap-5 p-5 md:p-10 max-w-[1600px] mx-auto">
       <div className="w-full flex items-center justify-between">
         <Link to={details?.websiteUrl}>
           <div className="flex items-center gap-3">
